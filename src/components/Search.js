@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Search = (props) =>{
+export const Search = (props) =>{
     let inputValue;
 
     const handlerSubmitForm = e => {
@@ -16,5 +16,3 @@ const Search = (props) =>{
         </form>
     );
 };
-
-export default Search;
