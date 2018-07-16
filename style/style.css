@@ -1,0 +1,57 @@
+html {
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
+*,*::after,*::before {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.search-form {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.search-form input {
+    width: 95%;
+    margin: 0 auto;
+    height: 2.5rem;
+    border: 1px solid rgba(2,2,2,0.25);
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-form button {
+    height: 2.5rem;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 0 0.5rem;
+    background: rgb(240, 237, 237);
+}
+
+
+@media (min-width: 660px) {
+    .search-form {
+        width: 60%;
+    }
+}
+
+@media (min-width: 960px) {
+    .search-form {
+        width: 45%;
+    }
+}

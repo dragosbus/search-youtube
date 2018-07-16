@@ -3,6 +3,7 @@ import YTSearch from 'youtube-api-search';
 
 import {Search} from './components/Search';
 import {VideoList} from './components/VideosList';
+import {Video} from './components/Video';
 
 const API_KEY = 'AIzaSyAEGffpXZAuR9_FpYlWSo5f28JW6ZgJgSE';
 
@@ -45,6 +46,7 @@ class App extends Component {
     return (
       <div className="app">
         <Search submitSearch={this.submitSearch} />
+        <Video video = {this.state.videos[0]}/>
         <VideoList videos={this.state.videos}/>
       </div>
     );
