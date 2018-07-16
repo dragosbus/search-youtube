@@ -11,9 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: []
+      videos: [],
+      selectedVideo: null
     };
     this.submitSearch = this.submitSearch.bind(this);
+    this.selectVideo = this.selectVideo.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +26,11 @@ class App extends Component {
               videos: prevState.videos.concat(data)
             };
           },
-          () => console.log(this.state.videos)
+          () => {
+              this.setState({
+                selectedVideo: this.state.videos[0]
+              });
+          }
         );
       });
   }
@@ -32,22 +38,32 @@ class App extends Component {
   submitSearch(value) {
     YTSearch({ key: API_KEY, term: value }, data => {
       this.setState(
-        prevState => {
+        () => {
           return {
-            videos: prevState.videos.concat(data)
+            videos: [].concat(data)
           };
         },
-        () => console.log(this.state.videos)
+        () => {
+            this.setState({
+                selectedVideo: this.state.videos[0]
+            });
+        }
       );
     });
+  }
+
+  selectVideo(index) {
+      this.setState({
+        selectedVideo: this.state.videos[index]
+      });
   }
 
   render() {
     return (
       <div className="app">
         <Search submitSearch={this.submitSearch} />
-        <Video video = {this.state.videos[0]}/>
-        <VideoList videos={this.state.videos}/>
+        <Video video = {this.state.selectedVideo}/>
+        <VideoList videos={this.state.videos} selectVideo={this.selectVideo}/>
       </div>
     );
   }

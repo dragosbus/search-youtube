@@ -65,6 +65,28 @@ body {
     font-weight: 700;
 }
 
+.video-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.video-list li {
+    width: 95%;
+    margin: 1.5rem auto;
+    text-align: center;
+    cursor: pointer;
+}
+
+.video-list li h4 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+
+
 
 @media (min-width: 660px) {
     .search-form {
@@ -73,6 +95,10 @@ body {
 
     .selected-video {
         width: 60%;
+    }
+
+    .video-list li {
+        width: 45%;
     }
 }
 
@@ -83,5 +109,9 @@ body {
 
     .selected-video {
         width: 45%;
+    }
+
+    .video-list li {
+        width: 30%;
     }
 }
