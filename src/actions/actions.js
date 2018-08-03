@@ -14,4 +14,11 @@ export const setQuery = query => {
     }
 }
 
+export const selectVideo = index => {
+    return {
+        type: ActionTypes.SELECT_VIDEO,
+        index
+    }
+};
+
 
