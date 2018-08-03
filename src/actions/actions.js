@@ -3,7 +3,7 @@ import * as ActionTypes from '../actionTypes/actionTypes';
 export const fetchData = data => {
     return {
         type: ActionTypes.FETCH_DATA,
-        data
+        payload: data
     }
 };
 
