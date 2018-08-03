@@ -1,72 +1,49 @@
 import React, { Component } from 'react';
 import YTSearch from 'youtube-api-search';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import {Search} from './components/Search';
 import {VideoList} from './components/VideosList';
 import {Video} from './components/Video';
+import * as ActionCreators from './actions/actions';
 
 const API_KEY = 'Add your api Key';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      videos: [],
-      selectedVideo: null
-    };
-    this.submitSearch = this.submitSearch.bind(this);
-    this.selectVideo = this.selectVideo.bind(this);
-  }
-
-  componentDidMount() {
-    YTSearch({ key: API_KEY, term: 'space' }, data => {
-        this.setState(
-          prevState => {
-            return {
-              videos: prevState.videos.concat(data)
-            };
-          },
-          () => {
-              this.setState({
-                selectedVideo: this.state.videos[0]
-              });
-          }
-        );
-      });
-  }
-
-  submitSearch(value) {
-    YTSearch({ key: API_KEY, term: value }, data => {
-      this.setState(
-        () => {
-          return {
-            videos: [].concat(data)
-          };
-        },
-        () => {
-            this.setState({
-                selectedVideo: this.state.videos[0]
-            });
-        }
-      );
-    });
-  }
-
-  selectVideo(index) {
-      this.setState({
-        selectedVideo: this.state.videos[index]
-      });
-  }
 
   render() {
+    const {dispatch, videos, selectedVideo} = this.props;
+
+    const selectVideo = bindActionCreators(ActionCreators.selectVideo, dispatch);
+    const setQuery = bindActionCreators(ActionCreators.setQuery, dispatch);
+    
     return (
       <div className="app">
-        <Search submitSearch={this.submitSearch} />
-        <Video video = {this.state.selectedVideo}/>
-        <VideoList videos={this.state.videos} selectVideo={this.selectVideo}/>
+        <Search submitSearch={setQuery} />
+        <Video video = {videos[selectedVideo]}/>
+        <VideoList videos={videos} selectVideo={selectVideo}/>
       </div>
     );
   }
 }
 
-export default App;
+export const fetchDataAsync = store => next => action => {
+  if(!action.payload) {
+    return next(action);
+  }
+
+  YTSearch({ key: API_KEY, term: 'space' }, data=> {
+    store.dispatch({...action, payload: data});
+    console.log(data);
+    console.log(action)
+  });
+};
+
+const mapStateToProps = state => ({
+  videos: state.videos,
+  query: state.query,
+  selectedVideo: state.selectedVideo
+});
+
+export default connect(mapStateToProps)(App);
