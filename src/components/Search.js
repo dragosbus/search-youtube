@@ -7,6 +7,7 @@ export const Search = (props) =>{
     const handlerSubmitForm = e => {
         e.preventDefault();
         props.submitSearch(inputValue.value);
+        console.log(props.submitSearch(inputValue.value))
     };
 
     return (
